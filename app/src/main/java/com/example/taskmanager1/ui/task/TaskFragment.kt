@@ -27,7 +27,7 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnSave.setOnClickListener{
+        binding.btnSave.setOnClickListener {
             val data = Task(
                 title = binding.etTitle.text.toString(),
                 desc = binding.etDesc.text.toString()
@@ -37,6 +37,7 @@ class TaskFragment : Fragment() {
 
         }
     }
+
     companion object {
         const val RESULT_KEY = "result.key"
         const val TASK_KEY = "task.key"

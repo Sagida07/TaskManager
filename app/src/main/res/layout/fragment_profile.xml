@@ -9,7 +9,7 @@
     tools:context=".ui.profile.ProfileFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
+        android:id="@+id/iv_profile"
         android:layout_width="148dp"
         android:layout_height="148dp"
         android:src="@drawable/img_profile"
@@ -21,7 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:hint="Enter your name: "
+        android:hint="@string/enter_your_name"
         android:padding="16dp" />
+
+    <Button
+        android:id="@+id/btn_name_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/save" />
 
 </LinearLayout>
