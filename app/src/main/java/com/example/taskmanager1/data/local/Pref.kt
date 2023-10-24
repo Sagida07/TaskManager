@@ -10,6 +10,10 @@ class Pref(context: Context) {
         return pref.getBoolean(SHOWED_KEY, false)
     }
 
+    fun onShowed() {
+        pref.edit().putBoolean(SHOWED_KEY, true).apply()
+    }
+
     fun saveName(name: String) {
         pref.edit().putString(NAME_KEY, name).apply()
     }
@@ -18,11 +22,7 @@ class Pref(context: Context) {
         return pref.getString(NAME_KEY, " ").toString()
     }
 
-    fun onShowed() {
-        pref.edit().putBoolean(SHOWED_KEY, true).apply()
-    }
-
-    fun setImage(image: String) {
+    fun saveImage(image: String) {
         pref.edit().putString(IMAGE_KEY, image).apply()
     }
 

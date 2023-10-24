@@ -15,8 +15,6 @@ import com.example.taskmanager1.data.local.Pref
 import com.example.taskmanager1.databinding.FragmentProfileBinding
 import com.example.taskmanager1.utils.loadImage
 
-private lateinit var binding: FragmentProfileBinding
-
 class ProfileFragment : Fragment() {
 
     private val pref by lazy {
@@ -25,12 +23,14 @@ class ProfileFragment : Fragment() {
 
     private val pic =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK && it.data != null) {
-                val uri: Uri? = it.data?.data
-                pref.setImage(uri.toString())
-                binding.ivProfile.loadImage(uri.toString())
+            if (it.resultCode == Activity.RESULT_OK) {
+                val selectedUri = it.data?.data
+                pref.saveImage(selectedUri.toString())
+                binding.ivProfile.loadImage(selectedUri.toString())
             }
         }
+
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,9 +48,8 @@ class ProfileFragment : Fragment() {
         }
         binding.ivProfile.loadImage(pref.getImage())
         binding.ivProfile.setOnClickListener {
-            val intent = Intent()
+            val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
             pic.launch(intent)
         }
     }
