@@ -55,8 +55,8 @@ class HomeFragment : Fragment() {
     private fun onLongClick(task: Task) {
 
         val alertDialog = AlertDialog.Builder(requireContext())
-        alertDialog.setTitle("Deleting the task")
-        alertDialog.setMessage("Are you sure you want to delete this task?")
+        alertDialog.setTitle("Delete the task")
+        alertDialog.setMessage("Are you sure that you want to delete this task?")
         alertDialog.setNegativeButton("No", object : DialogInterface.OnClickListener {
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 dialog?.cancel()
