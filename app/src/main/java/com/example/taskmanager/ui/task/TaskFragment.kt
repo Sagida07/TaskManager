@@ -40,6 +40,7 @@ class TaskFragment : Fragment() {
     private fun onUpdate() = with(binding) {
         etTitle.setText(task?.title)
         etDesc.setText(task?.desc)
+        btnSave.text = (getString(R.string.update))
         btnSave.setOnClickListener {
             val data = task?.copy(
                 title = binding.etTitle.text.toString(),
