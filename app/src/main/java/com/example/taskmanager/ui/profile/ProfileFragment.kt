@@ -14,6 +14,8 @@ import com.example.taskmanager.utils.loadImage
 
 class ProfileFragment : Fragment() {
 
+    private lateinit var binding: FragmentProfileBinding
+
     private val pref by lazy {
         Pref(requireContext())
     }
@@ -26,8 +28,6 @@ class ProfileFragment : Fragment() {
                 binding.ivProfile.loadImage(selectedUri.toString())
             }
         }
-
-    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

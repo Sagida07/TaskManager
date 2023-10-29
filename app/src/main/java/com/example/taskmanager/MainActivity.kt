@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_onBoardingFragment
             )
         )
-        showToast("Hello!")
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->

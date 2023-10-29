@@ -5,15 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.App
+import com.example.taskmanager.R
 import com.example.taskmanager.model.Task
 import com.example.taskmanager.databinding.FragmentTaskBinding
 
 class TaskFragment : Fragment() {
 
     private lateinit var binding: FragmentTaskBinding
+    private var task: Task? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,19 +28,46 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnSave.setOnClickListener {
-            val data = Task(
+
+        task = arguments?.getSerializable(TASK_KEY) as Task?
+        if (task == null) {
+            onSave()
+        } else {
+            onUpdate()
+        }
+    }
+
+    private fun onUpdate() = with(binding) {
+        etTitle.setText(task?.title)
+        etDesc.setText(task?.desc)
+        btnSave.setOnClickListener {
+            val data = task?.copy(
                 title = binding.etTitle.text.toString(),
                 desc = binding.etDesc.text.toString()
             )
-            App.db.taskDao().insert(data)
+            App.db.taskDao().update(data!!)
             findNavController().navigateUp()
+        }
+    }
 
+    private fun onSave() {
+        binding.btnSave.setOnClickListener {
+            if (binding.etTitle.text.toString().isNotEmpty()) {
+                val data = Task(
+                    title = binding.etTitle.text.toString(),
+                    desc = binding.etDesc.text.toString()
+                )
+                App.db.taskDao().insert(data)
+                findNavController().navigateUp()
+            } else {
+                Toast.makeText(context, "title can't be empty", Toast.LENGTH_LONG).show()
+                binding.etTitle.error = "null"
+                return@setOnClickListener
+            }
         }
     }
 
     companion object {
-        const val RESULT_KEY = "result.key"
-        const val TASK_KEY = "task.key"
+        val TASK_KEY = "task.key"
     }
 }

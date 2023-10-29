@@ -24,7 +24,7 @@ class OnBoardingFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,13 +32,7 @@ class OnBoardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewPager.adapter = adapter
-        setIndicator()
-    }
-
-    private fun setIndicator() {
-        val indicator: CircleIndicator3 = binding.indicator
-        val viewPager = binding.viewPager
-        indicator.setViewPager(viewPager)
+        binding.indicator.setViewPager(binding.viewPager)
     }
 
     private fun onClick() {

@@ -13,7 +13,7 @@ import com.example.taskmanager.utils.loadImage
 class OnBoardingAdapter(private val onClick: () -> Unit) :
     Adapter<OnBoardingAdapter.OnBoardingViewHolder>() {
 
-    private val list = arrayListOf<OnBoarding>(
+    private val list = arrayListOf(
         OnBoarding(
             "King Julian",
             "narcissistic, eccentric partylover",
@@ -31,7 +31,6 @@ class OnBoardingAdapter(private val onClick: () -> Unit) :
         )
     )
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnBoardingViewHolder {
         return OnBoardingViewHolder(
             ItemOnboardingBinding.inflate(
@@ -47,7 +46,6 @@ class OnBoardingAdapter(private val onClick: () -> Unit) :
     override fun onBindViewHolder(holder: OnBoardingViewHolder, position: Int) {
         holder.bind(list[position])
     }
-
 
     inner class OnBoardingViewHolder(private val binding: ItemOnboardingBinding) :
         ViewHolder(binding.root) {

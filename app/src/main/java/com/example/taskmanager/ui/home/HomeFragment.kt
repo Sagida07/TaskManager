@@ -1,32 +1,25 @@
 package com.example.taskmanager.ui.home
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.App
-import com.example.taskmanager.model.Task
-import com.example.taskmanager.ui.home.adapter.TaskAdapter
 import com.example.taskmanager.R
 import com.example.taskmanager.databinding.FragmentHomeBinding
+import com.example.taskmanager.model.Task
+import com.example.taskmanager.ui.home.adapter.TaskAdapter
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: TaskAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        adapter = TaskAdapter(this::onLongClick)
-    }
+    private val adapter: TaskAdapter = TaskAdapter(this::onLongClick, this::onClick)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,24 +44,26 @@ class HomeFragment : Fragment() {
         adapter.addTasks(tasks)
     }
 
-    @SuppressLint("SuspiciousIndentation")
-    private fun onLongClick(task: Task) {
+    private fun onClick(bundle: Bundle){
+        findNavController().navigate(R.id.taskFragment, bundle)
+    }
 
+    private fun onLongClick(task: Task) {
         val alertDialog = AlertDialog.Builder(requireContext())
-        alertDialog.setTitle("Deleting the task")
-        alertDialog.setMessage("Are you sure you want to delete this task?")
-        alertDialog.setNegativeButton("No", object : DialogInterface.OnClickListener {
-            override fun onClick(dialog: DialogInterface?, which: Int) {
+        alertDialog
+            .setTitle(getString(R.string.delete_the_task))
+            .setMessage(getString(R.string.are_you_sure_that_you_want_to_delete_this_task))
+            .setNegativeButton(
+                getString(R.string.no)
+            ) { dialog: DialogInterface?, _ ->
                 dialog?.cancel()
             }
-        })
-
-        alertDialog.setPositiveButton("Yes", object : DialogInterface.OnClickListener {
-            override fun onClick(dialog: DialogInterface?, which: Int) {
+            .setPositiveButton(
+                getString(R.string.yes)
+            ) { _, _ ->
                 App.db.taskDao().delete(task)
                 setData()
             }
-        })
         alertDialog.create().show()
     }
 }

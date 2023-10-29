@@ -18,7 +18,7 @@ class Pref(context: Context) {
         pref.edit().putString(NAME_KEY, name).apply()
     }
 
-    fun getName(): String? {
+    fun getName(): String {
         return pref.getString(NAME_KEY, " ").toString()
     }
 
@@ -29,7 +29,6 @@ class Pref(context: Context) {
     fun getImage(): String {
         return pref.getString(IMAGE_KEY, "").toString()
     }
-
 
     companion object {
         const val PREF_NAME = "pref.name"
