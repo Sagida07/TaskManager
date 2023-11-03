@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.App
@@ -32,10 +33,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setData()
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.taskFragment)
         }
-        setData()
         binding.recyclerView.adapter = adapter
     }
 
@@ -44,8 +45,8 @@ class HomeFragment : Fragment() {
         adapter.addTasks(tasks)
     }
 
-    private fun onClick(bundle: Bundle){
-        findNavController().navigate(R.id.taskFragment, bundle)
+    private fun onClick(task: Task) {
+        findNavController().navigate(R.id.taskFragment, bundleOf(TASK_DATA to task))
     }
 
     private fun onLongClick(task: Task) {
@@ -65,5 +66,9 @@ class HomeFragment : Fragment() {
                 setData()
             }
         alertDialog.create().show()
+    }
+
+    companion object {
+        const val TASK_DATA = "task.data"
     }
 }

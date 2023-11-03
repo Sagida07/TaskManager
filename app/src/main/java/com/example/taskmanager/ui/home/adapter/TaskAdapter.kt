@@ -1,21 +1,20 @@
 package com.example.taskmanager.ui.home.adapter
 
-import android.os.Bundle
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.taskmanager.databinding.ItemTaskBinding
 import com.example.taskmanager.model.Task
-import com.example.taskmanager.ui.task.TaskFragment
 
 class TaskAdapter(
     private val onLongClick: (Task) -> Unit,
-    private val onClick: (Bundle) -> Unit
+    private val onClick: (Task) -> Unit
 ) : Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val data = arrayListOf<Task>()
+    private var color = true
 
     fun addTasks(tasks: List<Task>) {
         data.clear()
@@ -51,7 +50,18 @@ class TaskAdapter(
                 false
             }
             itemView.setOnClickListener {
-                onClick(bundleOf(TaskFragment.TASK_KEY to task))
+                onClick(task)
+            }
+            if (color) {
+                itemTask.setBackgroundColor(Color.BLACK)
+                tvDesc.setTextColor(Color.WHITE)
+                tvTitle.setTextColor(Color.WHITE)
+                color = false
+            } else {
+                binding.itemTask.setBackgroundColor(Color.WHITE)
+                tvDesc.setTextColor(Color.BLACK)
+                tvTitle.setTextColor(Color.BLACK)
+                color = true
             }
         }
     }

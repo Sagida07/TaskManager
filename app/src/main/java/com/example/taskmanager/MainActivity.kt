@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         if (!pref.isShow())
             navController.navigate(R.id.navigation_onBoardingFragment)
 
-
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
