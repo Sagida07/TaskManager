@@ -17,4 +17,10 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="update">Update</string>
+    <string name="success">Success</string>
+    <string name="message">message</string>
+    <string name="upload_success">upload_success</string>
+    <string name="message1">msg</string>
+    <string name="exit">Exit</string>
+    <string name="are_you_sure_that_you_want_to_exit">Are you sure that you want to exit?</string>
 </resources>

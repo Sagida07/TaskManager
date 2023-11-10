@@ -1,6 +1,7 @@
 package com.example.taskmanager.ui.profile
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.doOnTextChanged
+import androidx.navigation.fragment.findNavController
+import com.example.taskmanager.R
 import com.example.taskmanager.data.local.Pref
 import com.example.taskmanager.databinding.FragmentProfileBinding
 import com.example.taskmanager.utils.loadImage
@@ -25,7 +29,7 @@ class ProfileFragment : Fragment() {
             if (it.resultCode == Activity.RESULT_OK) {
                 val selectedUri = it.data?.data
                 pref.saveImage(selectedUri.toString())
-                binding.ivProfile.loadImage(selectedUri.toString())
+                binding.imgProfile.loadImage(selectedUri.toString())
             }
         }
 
@@ -43,11 +47,23 @@ class ProfileFragment : Fragment() {
         binding.btnNameSave.setOnClickListener {
             pref.saveName(binding.etName.text.toString())
         }
-        binding.ivProfile.loadImage(pref.getImage())
-        binding.ivProfile.setOnClickListener {
+        binding.imgProfile.loadImage(pref.getImage())
+        binding.imgProfile.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             pic.launch(intent)
         }
+        binding.imgExit.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder
+                .setTitle(getString(R.string.are_you_sure_that_you_want_to_exit))
+                .setNegativeButton(getString(R.string.no)) { dialog, i ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton(getString(R.string.yes)) { dialog, i ->
+                    findNavController().navigate(R.id.phoneFragment)
+                }
+            val alertDialog = builder.create()
+            alertDialog.show()        }
     }
 }

@@ -31,7 +31,6 @@ class TaskAdapter(
             )
         )
     }
-
     override fun getItemCount(): Int {
         return data.count()
     }

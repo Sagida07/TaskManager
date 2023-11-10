@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.App
@@ -15,6 +16,7 @@ import com.example.taskmanager.ui.home.HomeFragment
 class TaskFragment : Fragment() {
 
     private lateinit var binding: FragmentTaskBinding
+    private var task: Task? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +28,14 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
+
+        val inputText = binding.outlinedTextField.editText?.text.toString()
+        binding.outlinedTextField.editText?.doOnTextChanged { inputText, _, _, _ ->
+        }
+        val inputTextDesc = binding.title.editText?.text.toString()
+        binding.outlinedTextField.editText?.doOnTextChanged { inputText, _, _, _ ->
+        }
+
         val task = arguments?.getSerializable(HomeFragment.TASK_DATA) as Task?
         task?.let {
             etTitle.setText(it.title)

@@ -54,14 +54,10 @@ class HomeFragment : Fragment() {
         alertDialog
             .setTitle(getString(R.string.delete_the_task))
             .setMessage(getString(R.string.are_you_sure_that_you_want_to_delete_this_task))
-            .setNegativeButton(
-                getString(R.string.no)
-            ) { dialog: DialogInterface?, _ ->
-                dialog?.cancel()
+            .setNegativeButton(getString(R.string.no)) {
+                    dialog: DialogInterface?, _ -> dialog?.cancel()
             }
-            .setPositiveButton(
-                getString(R.string.yes)
-            ) { _, _ ->
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 App.db.taskDao().delete(task)
                 setData()
             }
